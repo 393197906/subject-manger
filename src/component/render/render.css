@@ -9,4 +9,5 @@
 .render-phone-content {
     margin: 0 auto;
     overflow: auto;
+    position: relative;
 }

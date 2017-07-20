@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {Tabs, Card, Button, Row, Col, Form, Input, InputNumber, Collapse, Popover} from 'antd';
+import  ModuleToolsCell from './module-tools-cell'
 import './module-tools.css'
 import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../../module/index'
 const Panel = Collapse.Panel;
-
+const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod};
 const modeuleList = [
-    {name: '轮播图', priview: Swiper},
-    {name: '导航', priview: Nav},
-    {name: '静态模块A(一列)', priview: Amod},
-    {name: '静态模块B(二列)', priview: Bmod},
-    {name: '静态模块C(三列)', priview: Cmod},
-    {name: '静态模块D(组合)', priview: Dmod},
+    {name: '轮播图', priview: 'Swiper'},
+    {name: '导航', priview: 'Nav'},
+    {name: '静态模块A(一列)', priview: 'Amod'},
+    {name: '静态模块B(二列)', priview: 'Bmod'},
+    {name: '静态模块C(三列)', priview: 'Cmod'},
+    {name: '静态模块D(组合)', priview: 'Dmod'},
 ];
 
 export default class ModuleTools extends Component {
@@ -21,12 +22,7 @@ export default class ModuleTools extends Component {
                     <Panel header='静态组件' key="1">
                         {
                             modeuleList.map((item, index) => (
-                                <div style={{marginBottom: '5px'}} key={index}>
-                                    <Popover content={<item.priview/>} placement="left"
-                                             overlayClassName="priview-module">
-                                        <Button style={{width: '100%'}}>{item.name}</Button>
-                                    </Popover>
-                                </div>
+                                <ModuleToolsCell name={item.name} priview={item.priview}/>
                             ))
                         }
                     </Panel>

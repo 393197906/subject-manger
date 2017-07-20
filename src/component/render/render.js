@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Card, Button, Row, Col, Form, Input, Radio} from 'antd';
 import './render.css'
-import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../module/index'
 import Mupload from '../common/upload/upload'
+import RenderPhone from './render-phone'
 
 const FormItem = Form.Item;
 const RadioButton = Radio.Button;
@@ -49,26 +49,10 @@ export default class Render extends Component {
                                 }
                             }
                                  ref="renderPhone">
-                                <div
-                                    className="render-phone-content"
-                                    style={{
-                                        width: this.state.phoneContentWidth,
-                                        height: this.state.phoneContentHeight
-                                    }}
-                                >
-                                    <Swiper operate={this.state.operaceNum === 0}
-                                            fetchOpera={this._haveOpera.bind(this, 0)}/>
-                                    <Nav operate={this.state.operaceNum === 1}
-                                         fetchOpera={this._haveOpera.bind(this, 1)}/>
-                                    <Amod operate={this.state.operaceNum === 2}
-                                          fetchOpera={this._haveOpera.bind(this, 2)}/>
-                                    <Bmod operate={this.state.operaceNum === 3}
-                                          fetchOpera={this._haveOpera.bind(this, 3)}/>
-                                    <Cmod operate={this.state.operaceNum === 4}
-                                          fetchOpera={this._haveOpera.bind(this, 4)}/>
-                                    <Dmod operate={this.state.operaceNum === 5}
-                                          fetchOpera={this._haveOpera.bind(this, 5)}/>
-                                </div>
+                                <RenderPhone
+                                    phoneContentWidth={this.state.phoneContentWidth}
+                                    phoneContentHeight={this.state.phoneContentHeight}
+                                />
                             </div>
                         </Col>
                         <Col span={9}>

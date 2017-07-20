@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Row, Col} from 'antd'
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import Left from './component/left/left'
-import Middle from './component/middle/middle'
 import Right from './component/right/right'
 import './App.css';
 class App extends Component {
@@ -19,4 +20,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);
