@@ -1,0 +1,9 @@
+.swiper-cell{
+    height:50px;
+    line-height: 50px;
+}
+.swiper-bottom{
+    height:30px;
+    line-height: 30px;
+    margin-top: 5px;
+}
