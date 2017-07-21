@@ -2,13 +2,13 @@
  * Created by mr.xie on 2017/7/19.
  */
 import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, InputNumber} from 'antd';
+import pubsub from 'pubsub-js'
 
 export default class Base extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: -1
+            active: this.props.active === undefined ? -1 : this.props.active
         }
     }
 
@@ -30,6 +30,11 @@ export default class Base extends Component {
 
     _changeActive(active, e) {
         e.preventDefault();
+        pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {
+            level: this.props.level,
+            countLevel: this.props.countLevel,
+            cell: active
+        });
         if (!this.props.operate) {
             this.setState({active: -1});
             this.props.fetchOpera();

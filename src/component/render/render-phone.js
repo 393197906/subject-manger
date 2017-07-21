@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {DropTarget} from 'react-dnd';
+import {message} from 'antd';
 import './render.css'
-import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../module/index'
-const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod}
+import pubsub from 'pubsub-js'
+import {Swiper, Nav, Amod, Bmod, Cmod, Dmod,} from '../module/index'
+const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod};
 
 class RenderPhone extends Component {
     static propTypes = {
@@ -15,9 +17,71 @@ class RenderPhone extends Component {
         super(props);
         this.state = {
             operaceNum: 0,
-            priviewData: []
+            priviewData: [
+                {
+                    name: '导航',
+                    priview: 'Nav'
+                },
+                {
+                    name: '轮播图',
+                    priview: 'Swiper'
+                },
+                {
+                    name: '模块一',
+                    priview: 'Amod'
+                },
+                {
+                    name: '模块一',
+                    priview: 'Bmod'
+                },
+                {
+                    name: '模块一',
+                    priview: 'Cmod'
+                }
+            ]
         }
     }
+
+    __layoutData({level, direction}) {
+        const data = this.state.priviewData;
+        data[level].active = 0;
+        let opera;
+        if (direction === 'up') {
+            opera = level - 1;
+        } else if (direction === 'down') {
+            opera = level + 1;
+        }
+        let temp = data[opera];
+        data[opera] = data[level];
+        data[level] = temp;
+        this.setState({
+            priviewData: data,
+            operaceNum: opera
+        })
+    }
+
+    componentDidMount() {
+        pubsub.subscribe('RENDER_PHONE_JS_LAYOUT_PHONE', (msg, {level, direction}) => {
+            if (level === 0 && direction === 'up') {
+                message.error('已是第一个节点元素');
+                return;
+            }
+            if (level === this.state.priviewData.length - 1 && direction === 'down') {
+                message.error('已是最后一个节点元素');
+                return;
+            }
+            this.__layoutData({level, direction});
+        });
+        pubsub.subscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE', (msg, {}) => {
+            alert('remove');
+        })
+    }
+
+    componentWillUnmount() {
+        pubsub.unsubscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE');
+        pubsub.unsubscribe('RENDER_PHONE_JS_LAYOUT_PHONE');
+    }
+
 
     _haveOpera(num) {
         this.setState({operaceNum: num})
@@ -25,7 +89,7 @@ class RenderPhone extends Component {
 
     render() {
         const {connectDropTarget, isOver, canDrop, children} = this.props;
-
+        const countLevel = this.state.priviewData.length;
         return connectDropTarget(
             <div
                 className="render-phone-content"
@@ -40,24 +104,12 @@ class RenderPhone extends Component {
                     this.state.priviewData.map((item, index) => {
                         let Dom = lib[item.priview];
                         return (
-                            <Dom operate={this.state.operaceNum === index}
+                            <Dom operate={this.state.operaceNum === index} active={item.active===undefined ? -1 : item.active}
+                                 level={index} countLevel={countLevel}
                                  fetchOpera={this._haveOpera.bind(this, index)} key={index}/>
                         )
                     })
                 }
-
-                {/*<Swiper operate={this.state.operaceNum === 0}*/}
-                {/*fetchOpera={this._haveOpera.bind(this, 0)}/>*/}
-                {/*<Nav operate={this.state.operaceNum === 1}*/}
-                {/*fetchOpera={this._haveOpera.bind(this, 1)}/>*/}
-                {/*<Amod operate={this.state.operaceNum === 2}*/}
-                {/*fetchOpera={this._haveOpera.bind(this, 2)}/>*/}
-                {/*<Bmod operate={this.state.operaceNum === 3}*/}
-                {/*fetchOpera={this._haveOpera.bind(this, 3)}/>*/}
-                {/*<Cmod operate={this.state.operaceNum === 4}*/}
-                {/*fetchOpera={this._haveOpera.bind(this, 4)}/>*/}
-                {/*<Dmod operate={this.state.operaceNum === 5}*/}
-                {/*fetchOpera={this._haveOpera.bind(this, 5)}/>*/}
             </div>
         );
     }
