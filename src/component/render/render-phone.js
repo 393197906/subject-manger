@@ -19,11 +19,12 @@ class RenderPhone extends Component {
             operaceNum: 0,
             priviewData: [
                 {
-                    name: '导航',
+                    name: 'Nav',
                     priview: 'Nav',
-                    data: {}
-                },
-
+                    data: {
+                        1: {type:'goods',primary_key:'101'}, 2: {type:'search',search:'search'}, 3: {type:'activity',primary_key:'404'}, 4: {type:'classification',primary_key:'101234'}, 5: {type:'goods',primary_key:'10111'}, 6: {type:'classification',primary_key:'792'}, 7: {type:'goods',primary_key:'893'}, 8: {type:'activity',primary_key:'1011'}
+                    }
+                }
             ]
         }
     }
@@ -65,18 +66,7 @@ class RenderPhone extends Component {
         pubsub.subscribe('RENDER_PHONE_JS_UPDATE', (msg, {level, cell, cellData}) => {
             const priviewData = this.state.priviewData;
             const levelData = priviewData[level];
-            if (!levelData.data) {
-                levelData.data = {
-                    [cell]: {
-                        [cellData.key]: cellData.value
-                    }
-                }
-            } else {
-                if (!levelData.data[cell]) {
-                    levelData.data[cell] = {};
-                }
-                levelData.data[cell][cellData.key] = cellData.value;
-            }
+            levelData.data[cell][cellData.key] = cellData.value;
             console.log(levelData);
         })
     }
@@ -110,6 +100,7 @@ class RenderPhone extends Component {
                         let Dom = lib[item.priview];
                         return (
                             <Dom operate={this.state.operaceNum === index}
+                                 data={item.data}
                                  active={item.active === undefined ? -1 : item.active}
                                  level={index} countLevel={countLevel}
                                  fetchOpera={this._haveOpera.bind(this, index)} key={index}/>

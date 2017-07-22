@@ -5,8 +5,31 @@ import './module-tools.css'
 import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../../module/index'
 const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod};
 
-class ModuleToolsCell extends Component {
 
+const factory_kong_obj = (num = 0) => {
+    const obj = {};
+    for (let i = 1; i <= num; i++) {
+        obj[i] = {};
+    }
+    return obj;
+};
+const initData = {
+    Swiper: factory_kong_obj(6),
+    Nav: factory_kong_obj(8),
+    // Nav: {
+    //     1: {primary_key: '1111'},
+    //     2: {primary_key: '2222'},
+    // },
+    Amod: factory_kong_obj(1),
+    Bmod: factory_kong_obj(2),
+    Cmod: factory_kong_obj(3),
+    Dmod: factory_kong_obj(3),
+};
+
+console.log(initData);
+
+
+class ModuleToolsCell extends Component {
     render() {
         const {connectDragSource, isDragging} = this.props;
         const Hover = lib[this.props.priview];
@@ -22,7 +45,7 @@ class ModuleToolsCell extends Component {
 }
 ModuleToolsCell.defaultProps = {
     priview: null,
-    name: '组件名称'
+    name: '组件名称',
 };
 
 ModuleToolsCell.PropTypes = {
@@ -35,7 +58,10 @@ ModuleToolsCell.PropTypes = {
 
 export default  DragSource('module-cell', {
     beginDrag(props) {
-        return props
+        return {
+            ...props,
+            data: initData[props.priview]
+        }
     },
 }, (connect, monitor) => {
     return {

@@ -13,7 +13,10 @@ export default class FormImg extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            type: this.props.type || 'goods'
+            type: this.props.formData.type || 'goods',
+            primary_key: this.props.formData.primary_key || '',
+            search: this.props.formData.search || '',
+            description: this.props.formData.description || '',
         }
     }
 
@@ -32,6 +35,10 @@ export default class FormImg extends Component {
 
     _valueChange(key, e) {
         const value = e.target.value;
+        let temp = {};
+        temp[key] = value;
+        console.log(temp);
+        this.setState(temp);
         const cellData = {
             key, value
         };
@@ -46,7 +53,7 @@ export default class FormImg extends Component {
         return (
             <div>
                 <FormItem label="细胞模型" layout="vertical">
-                    <RadioGroup defaultValue={this.state.type} onChange={this._typeChange.bind(this)}>
+                    <RadioGroup value={this.state.type} onChange={this._typeChange.bind(this)}>
                         <RadioButton value="goods">商品</RadioButton>
                         <RadioButton value="activity">活动</RadioButton>
                         <RadioButton value="classification">分类</RadioButton>
@@ -56,18 +63,21 @@ export default class FormImg extends Component {
                 {   this.state.type !== 'search' ?
                     <FormItem label="主键" layout="vertical">
                         <Input type='number' placeholder="请输入模型主键"
-                               onChange={this._valueChange.bind(this, 'primary_key')}/>
+                               onChange={this._valueChange.bind(this, 'primary_key')}
+                               value={this.state.primary_key}/>
                     </FormItem> : null
                 }
                 {
                     this.state.type === 'search' ?
                         <FormItem label="搜索关键词" layout="vertical">
-                            <Input placeholder="输入搜索关键词" onChange={this._valueChange.bind(this, 'search')}/>
+                            <Input placeholder="输入搜索关键词" value={this.state.search}
+                                   onChange={this._valueChange.bind(this, 'search')}/>
                         </FormItem> : null
                 }
 
                 <FormItem label="描述" layout="vertical">
-                    <Input placeholder="请输入细胞描述" onChange={this._valueChange.bind(this, 'description')}/>
+                    <Input placeholder="请输入细胞描述" value={this.state.description}
+                           onChange={this._valueChange.bind(this, 'description')}/>
                 </FormItem>
                 <FormItem label="细胞图片" layout="vertical">
                     <Mupload/>

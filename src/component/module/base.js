@@ -41,7 +41,8 @@ export default class Base extends Component {
         pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {
             level: this.props.level,
             countLevel: this.props.countLevel,
-            cell: active
+            cell: active,
+            formData: this.props.data[active]
         });
         if (!this.props.operate) {
             this.setState({active: -1});
