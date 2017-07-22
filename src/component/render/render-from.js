@@ -35,6 +35,7 @@ export default class RenderForm extends Component {
     }
 
     _renderChild() {
+        return <FormImg level={this.state.level} cell={this.state.type}/>;
         if (this.state.type > 0) {
             return <FormImg level={this.state.level}/>
         }

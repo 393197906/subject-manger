@@ -20,24 +20,10 @@ class RenderPhone extends Component {
             priviewData: [
                 {
                     name: '导航',
-                    priview: 'Nav'
+                    priview: 'Nav',
+                    data: {}
                 },
-                {
-                    name: '轮播图',
-                    priview: 'Swiper'
-                },
-                {
-                    name: '模块一',
-                    priview: 'Amod'
-                },
-                {
-                    name: '模块一',
-                    priview: 'Bmod'
-                },
-                {
-                    name: '模块一',
-                    priview: 'Cmod'
-                }
+
             ]
         }
     }
@@ -74,12 +60,31 @@ class RenderPhone extends Component {
         });
         pubsub.subscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE', (msg, {}) => {
             alert('remove');
+        });
+
+        pubsub.subscribe('RENDER_PHONE_JS_UPDATE', (msg, {level, cell, cellData}) => {
+            const priviewData = this.state.priviewData;
+            const levelData = priviewData[level];
+            if (!levelData.data) {
+                levelData.data = {
+                    [cell]: {
+                        [cellData.key]: cellData.value
+                    }
+                }
+            } else {
+                if (!levelData.data[cell]) {
+                    levelData.data[cell] = {};
+                }
+                levelData.data[cell][cellData.key] = cellData.value;
+            }
+            console.log(levelData);
         })
     }
 
     componentWillUnmount() {
         pubsub.unsubscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE');
         pubsub.unsubscribe('RENDER_PHONE_JS_LAYOUT_PHONE');
+        pubsub.unsubscribe('RENDER_PHONE_JS_UPDATE');
     }
 
 
@@ -104,7 +109,8 @@ class RenderPhone extends Component {
                     this.state.priviewData.map((item, index) => {
                         let Dom = lib[item.priview];
                         return (
-                            <Dom operate={this.state.operaceNum === index} active={item.active===undefined ? -1 : item.active}
+                            <Dom operate={this.state.operaceNum === index}
+                                 active={item.active === undefined ? -1 : item.active}
                                  level={index} countLevel={countLevel}
                                  fetchOpera={this._haveOpera.bind(this, index)} key={index}/>
                         )

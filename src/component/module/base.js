@@ -12,6 +12,14 @@ export default class Base extends Component {
         }
     }
 
+    componentDidMount() {
+
+    }
+
+    componentWillUnmount() {
+
+    }
+
     active = {
         borderColor: '#1DA57A'
     };
