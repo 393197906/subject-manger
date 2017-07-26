@@ -39,6 +39,8 @@
     "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^15.6.1",
     "react-error-overlay": "^1.0.9",
+    "react-router": "^4.1.2",
+    "react-router-dom": "next",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.3",
     "url-loader": "0.5.9",
