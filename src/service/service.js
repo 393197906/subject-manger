@@ -57,6 +57,18 @@ class service {
         });
     }
 
+    remove_subject({subject_id}) {
+        return new Promise((res, rej) => {
+            axios.post(`${this.pres}api_remove_subject`, {
+                subject_id,
+            }).then(({data}) => {
+                res(data);
+            }).catch((err) => {
+                rej(err.message);
+            })
+        });
+    }
+
 
 }
 

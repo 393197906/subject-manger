@@ -45,14 +45,13 @@ export default  class Left extends Component {
                         <Menu.SubMenu title={<span><Icon type="bars"/>专题列表</span>} key="sub">
                             {
                                 this.state.subjectData.map((item) => (
-                                    <Menu.Item key={`${item.subject_id}${item.subject_name}`}><Link
+                                    <Menu.Item key={`${item.subject_id}key`}><Link
                                         to={`/${item.subject_id}`}><Icon
                                         type="database"/>{item.subject_name}
                                         {
                                             parseInt(item.subject_active) === 1 ? <span className="left-label"><Icon
                                                 type="eye"/></span> : null
                                         }
-
                                     </Link></Menu.Item>
                                 ))
                             }
