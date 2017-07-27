@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Button, Modal, Message} from 'antd';
+import {Card, Button, Modal, message} from 'antd';
 import pubsub from 'pubsub-js'
 import API from '../../service/service'
 
@@ -13,11 +13,11 @@ export default class Danger extends Component {
             content: '确定要删除该专题吗',
             onOk() {
                 return API.remove_subject({subject_id}).then((result) => {
-                    Message.success('专题删除成功');
+                    message.success('专题删除成功');
                     pubsub.publish('LEFT_UPDATE');
                     goback();
                 }).catch((err) => {
-                    Message.error(err);
+                    message.error(err);
                 })
             },
         });

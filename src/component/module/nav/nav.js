@@ -30,7 +30,7 @@ export default class Swiper extends Base {
                             span="5"
                             className="module-cell nav-cell"
                             {...this._cellComProp(item.id)}
-                        >{item.name}</Col>
+                        ><span>{item.name}</span></Col>
                     ))
                 }
             </Row>

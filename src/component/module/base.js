@@ -25,6 +25,7 @@ export default class Base extends Component {
     };
 
     _cellComProp = (key, type) => {
+        console.log(this.props.data[key]);
         const style = this.state.active === key && this.props.operate ? this.active : null;
         const onClick = this._changeActive.bind(this, key);
         if (type === 'style') {

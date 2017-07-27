@@ -26,7 +26,7 @@ const initData = {
     Dmod: factory_kong_obj(3),
 };
 
-console.log(initData);
+// console.log(initData);
 
 
 class ModuleToolsCell extends Component {

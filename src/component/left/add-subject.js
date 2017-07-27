@@ -2,7 +2,7 @@
  * Created by mr.xie on 2017/7/26.
  */
 import React, {Component} from 'react';
-import {Input, Button, Menu, Icon, Spin, Modal, Message} from 'antd';
+import {Input, Button, Menu, Icon, Spin, Modal, message} from 'antd';
 import  API from '../../service/service'
 import './left.css'
 export default  class Left extends Component {
@@ -25,7 +25,7 @@ export default  class Left extends Component {
                 value: ''
             });
         } catch (e) {
-            Message.error(e);
+            message.error(e);
             this.props.hide();
         }
         this.setState({

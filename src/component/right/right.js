@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tabs, Spin, Row, Col, Message, Card} from 'antd';
+import {Tabs, Spin, Row, Col, message, Card} from 'antd';
 import './right.css'
 import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../module/index'
 import ModuleTools from '../common/module-tools/module-tools'
@@ -26,7 +26,7 @@ export default class Right extends Component {
             const subjectData = await API.find_subjcet(id);
             this.setState({loading: false, subjectData});
         } catch (err) {
-            Message.error(err)
+            message.error(err)
         }
     }
 
@@ -38,7 +38,7 @@ export default class Right extends Component {
                 const subjectData = await API.find_subjcet(id);
                 this.setState({loading: false, subjectData});
             } catch (err) {
-                Message.error(err)
+                message.error(err)
             }
         }
     }
@@ -51,6 +51,7 @@ export default class Right extends Component {
                         <Col span={18}>
                             <Tabs
                                 tabPosition="left"
+                                // defaultActiveKey={'convent'}
                                 defaultActiveKey={'render'}
                                 onChange={(key) => {
                                     this.setState({
@@ -62,7 +63,7 @@ export default class Right extends Component {
                                     <Convent subjectData={this.state.subjectData}/>
                                 </TabPane>
                                 <TabPane tab="渲染" key="render">
-                                    <Render/>
+                                    <Render subjectData={this.state.subjectData}/>
                                 </TabPane>
                                 <TabPane tab="危险" key="danger">
                                     <Danger subject_id={this.state.subjectData.subject_id} goback={() => {

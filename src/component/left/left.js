@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-import {Input, Button, Menu, Icon, Spin, Modal, Message} from 'antd';
+import {Input, Button, Menu, Icon, Spin, Modal, message} from 'antd';
 import AddSubject from './add-subject'
 import  API from '../../service/service'
 import pubsub from 'pubsub-js'
@@ -22,13 +22,17 @@ export default  class Left extends Component {
         pubsub.subscribe('LEFT_UPDATE', this._service.bind(this));
     }
 
+    componentWillUnmount() {
+        pubsub.unsubscribe('LEFT_UPDATE');
+    }
+
     async _service() {
         this.setState({loading: true});
         try {
             const subjectData = await API.subjcet_list();
             this.setState({subjectData})
         } catch (err) {
-            Message.error(err);
+            message.error(err);
         }
         this.setState({loading: false});
     }
@@ -71,7 +75,7 @@ export default  class Left extends Component {
                         return;
                     }
                     await this._service();
-                    Message.success('专题添加成功');
+                    message.success('专题添加成功');
                     this.setState({
                         addSubjectShow: false,
                     })

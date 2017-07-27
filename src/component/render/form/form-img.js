@@ -37,7 +37,7 @@ export default class FormImg extends Component {
         const value = e.target.value;
         let temp = {};
         temp[key] = value;
-        console.log(temp);
+        // console.log(temp);
         this.setState(temp);
         const cellData = {
             key, value

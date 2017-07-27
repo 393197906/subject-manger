@@ -48,7 +48,7 @@ export default class Mupload extends Component {
     };
     handleChange = ({file, fileList, event}) => {
         if (file.status === 'done') {
-            console.log(file);
+            // console.log(file);
         }
         this.setState({fileList});
     };

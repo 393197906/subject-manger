@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, InputNumber, Message} from 'antd';
+import {Card, Button, Row, Col, Form, Input, InputNumber, message} from 'antd';
 import  API from '../../service/service'
 import pubsub from 'pubsub-js'
 
@@ -64,7 +64,7 @@ export default class Convent extends Component {
             });
             pubsub.publish('LEFT_UPDATE');
         } catch (err) {
-            Message.error(err);
+            message.error(err);
         }
         this.setState({saveLoading: false});
 

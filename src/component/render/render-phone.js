@@ -4,6 +4,7 @@ import {message} from 'antd';
 import './render.css'
 import pubsub from 'pubsub-js'
 import {Swiper, Nav, Amod, Bmod, Cmod, Dmod,} from '../module/index'
+import API from '../../service/service'
 const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod};
 
 class RenderPhone extends Component {
@@ -13,20 +14,13 @@ class RenderPhone extends Component {
         connectDropTarget: React.PropTypes.func.isRequired,
     };
 
+
     constructor(props) {
         super(props);
         this.state = {
             operaceNum: 0,
-            priviewData: [
-                {
-                    name: 'Nav',
-                    priview: 'Nav',
-                    data: {
-                        1: {type:'goods',primary_key:'101'}, 2: {type:'search',search:'search'}, 3: {type:'activity',primary_key:'404'}, 4: {type:'classification',primary_key:'101234'}, 5: {type:'goods',primary_key:'10111'}, 6: {type:'classification',primary_key:'792'}, 7: {type:'goods',primary_key:'893'}, 8: {type:'activity',primary_key:'1011'}
-                    }
-                }
-            ]
-        }
+            priviewData: []
+        };
     }
 
     __layoutData({level, direction}) {
@@ -47,6 +41,28 @@ class RenderPhone extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {
+            subject_template,
+        } = nextProps.subjectData;
+        if (subject_template === this.props.subjectData.subject_template) {
+            return;
+        }
+
+        if (subject_template === '' || subject_template === undefined && this.state.priviewData.length !== 0) {
+            this.setState({
+                priviewData: []
+            })
+        }
+        if (subject_template) {
+            let priviewData = JSON.parse(subject_template);
+            this.setState({
+                priviewData
+            })
+        }
+        pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {level:-1,cell: -1});
+    }
+
     componentDidMount() {
         pubsub.subscribe('RENDER_PHONE_JS_LAYOUT_PHONE', (msg, {level, direction}) => {
             if (level === 0 && direction === 'up') {
@@ -59,22 +75,41 @@ class RenderPhone extends Component {
             }
             this.__layoutData({level, direction});
         });
-        pubsub.subscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE', (msg, {}) => {
-            alert('remove');
+
+        pubsub.subscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE', (msg, {level}) => {
+            const priviewData = this.state.priviewData;
+            priviewData.splice(level, 1);
+            this.setState({
+                priviewData
+            });
+            pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {level:-1,cell: -1});
         });
 
         pubsub.subscribe('RENDER_PHONE_JS_UPDATE', (msg, {level, cell, cellData}) => {
             const priviewData = this.state.priviewData;
             const levelData = priviewData[level];
             levelData.data[cell][cellData.key] = cellData.value;
-            console.log(levelData);
+        });
+
+        pubsub.subscribe('RENDER_PHONE_JS_SAVE', async (msg, {subject_id}) => {
+            const subject_template = JSON.stringify(this.state.priviewData);
+            // console.log(subject_template);
+            try {
+                await API.updata_subject_render({subject_id, subject_template});
+                message.success('保存成功');
+            } catch (e) {
+                message.error(e);
+            }
         })
+
+
     }
 
     componentWillUnmount() {
         pubsub.unsubscribe('RENDER_PHONE_JS_REMOVE_OF_PHONE');
         pubsub.unsubscribe('RENDER_PHONE_JS_LAYOUT_PHONE');
         pubsub.unsubscribe('RENDER_PHONE_JS_UPDATE');
+        pubsub.unsubscribe('RENDER_PHONE_JS_SAVE');
     }
 
 
@@ -119,10 +154,9 @@ export default  DropTarget('module-cell', {
     drop(props, monitor, component) {
         const item = monitor.getItem();
         const priviewData = [...component.state.priviewData, item];
-        console.log(priviewData);
         component.setState({
             priviewData
-        })
+        });
 
     },
 }, (connect, monitor) => {

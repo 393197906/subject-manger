@@ -3,10 +3,11 @@ import {Card, Row, Col, Button, Dropdown, Icon, Menu} from 'antd';
 import './render.css'
 import RenderPhone from './render-phone'
 import RenderForm from './render-from'
+import pubsub from 'pubsub-js'
 
-const MenuList = (prop) => (
+const MenuList = (props) => (
     <span>
-        <Button icon="save" type="primary">保存</Button>
+        <Button icon="save" type="primary" onClick={props.saveRender}>保存</Button>
        <Dropdown overlay={
            <Menu>
                <Menu.Item key="1">初始化</Menu.Item>
@@ -41,10 +42,14 @@ export default class Render extends Component {
         this.setState({phoneHeight, phonePaddingTop, phonePaddingLeft, phoneContentWidth, phoneContentHeight})
     }
 
+    _saveRender = async () => {
+        await pubsub.publish('RENDER_PHONE_JS_SAVE', {subject_id: this.props.subjectData.subject_id});
+    };
+
     render() {
         return (
             <div >
-                <Card title="渲染骨架" extra={<MenuList/>}>
+                <Card title="渲染骨架" extra={<MenuList saveRender={this._saveRender}/>}>
                     <Row type='flex' justify='space-between'>
                         <Col span={13}>
                             <div className="render-phone" style={
@@ -57,6 +62,7 @@ export default class Render extends Component {
                                 <RenderPhone
                                     phoneContentWidth={this.state.phoneContentWidth}
                                     phoneContentHeight={this.state.phoneContentHeight}
+                                    subjectData={this.props.subjectData}
                                 />
                             </div>
                         </Col>

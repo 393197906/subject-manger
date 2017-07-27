@@ -22,14 +22,12 @@ export default class FormRoot extends Component {
     }
 
     _remove() {
+        const level = this.props.level;
         confirm({
             title: '删除确认?',
             content: '确定要删除吗？',
             onOk() {
-                console.log('OK');
-            },
-            onCancel() {
-                console.log('Cancel');
+                pubsub.publish('RENDER_PHONE_JS_REMOVE_OF_PHONE', {level})
             },
         });
     }
