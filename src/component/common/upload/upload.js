@@ -16,14 +16,13 @@ export default class Mupload extends Component {
             previewImage: '',
             fileList: [
                 // {
-                //     // uid: -1,
-                //     // name: 'xxx.png',
-                //     // status: 'done',
-                //     // url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                //     uid: -1,
+                //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
                 // }
             ],
         }
     }
+
     componentWillMount() {
         axios.get("http://localhost/bingdenew/ec/mobile/index.php?m=default&c=subject&a=autograph_oss").then(({data, status}) => {
             if (status === 200) {
@@ -48,13 +47,17 @@ export default class Mupload extends Component {
     };
     handleChange = ({file, fileList, event}) => {
         if (file.status === 'done') {
-            // console.log(file);
+            const image_name = `${file.lastModified}@@${file.size}@@${file.name}`;
+            const image_url = `http://bingde360.oss-cn-beijing.aliyuncs.com/${image_name}?x-oss-process=style/width400`;
+            console.log({
+                image_name, image_url
+            });
         }
         this.setState({fileList});
     };
 
     _beforeUpload(file) {
-        const alowType = ['image/jpeg'];
+        const alowType = ['image/jpeg', 'image/png', 'image/gif'];
         if (alowType.indexOf(file.type) === -1) {
             message.error('只允许上传图片');
             return false;
@@ -80,13 +83,13 @@ export default class Mupload extends Component {
                     action={this.state.host}
                     listType="picture-card"
                     data={(file) => {
-                        // const keyNameArr = file.name.split('.');
-                        // const key = `${Date.now()}.${keyNameArr[keyNameArr.length - 1]}`;
+                        const key = `${file.lastModified}@@${file.size}@@${file.name}`;
                         return {
                             OSSAccessKeyId: this.state.OSSAccessKeyId,
                             policy: this.state.policy,
                             Signature: this.state.Signature,
-                            key: file.name
+                            // key: file.name
+                            key
                         }
                     }}
                     fileList={fileList}
