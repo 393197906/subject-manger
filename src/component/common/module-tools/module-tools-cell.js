@@ -35,7 +35,7 @@ class ModuleToolsCell extends Component {
         const Hover = lib[this.props.priview];
         return connectDragSource(
             <div style={{marginBottom: '5px'}}>
-                <Popover content={<Hover/>} placement="left"
+                <Popover content={<Hover data={initData[this.props.priview]}/>} placement="left"
                          overlayClassName="priview-module">
                     <Button style={{width: '100%'}}>{this.props.name}</Button>
                 </Popover>

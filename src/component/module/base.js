@@ -25,8 +25,15 @@ export default class Base extends Component {
     };
 
     _cellComProp = (key, type) => {
-        console.log(this.props.data[key]);
-        const style = this.state.active === key && this.props.operate ? this.active : null;
+        let style = this.state.active === key && this.props.operate ? this.active : null;
+        if (this.props.data[key]) { //设置背景图片
+            if (this.props.data[key].image_url) {
+                let b_imag = {
+                    backgroundImage: `url('${this.props.data[key].image_url}')`
+                };
+                style = {...style, ...b_imag};
+            }
+        }
         const onClick = this._changeActive.bind(this, key);
         if (type === 'style') {
             return {style}

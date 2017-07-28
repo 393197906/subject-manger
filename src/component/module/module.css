@@ -17,11 +17,16 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
-.module-cell span{
+
+.module-cell span {
     background-color: #fff;
     border-radius: 3px;
 }
 
 .module-cell-active {
     border-color: #1DA57A;
+}
+
+.ant-upload.ant-upload-select-picture-card {
+    width: 100%
 }

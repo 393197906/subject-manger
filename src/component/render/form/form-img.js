@@ -37,7 +37,6 @@ export default class FormImg extends Component {
         const value = e.target.value;
         let temp = {};
         temp[key] = value;
-        // console.log(temp);
         this.setState(temp);
         const cellData = {
             key, value
@@ -80,7 +79,7 @@ export default class FormImg extends Component {
                            onChange={this._valueChange.bind(this, 'description')}/>
                 </FormItem>
                 <FormItem label="细胞图片" layout="vertical">
-                    <Mupload/>
+                    <Mupload level={this.props.level} cell={this.props.cell} image_url={this.props.formData.image_url}/>
                 </FormItem>
             </div>
         );

@@ -60,7 +60,7 @@ class RenderPhone extends Component {
                 priviewData
             })
         }
-        pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {level:-1,cell: -1});
+        pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {level: -1, cell: -1});
     }
 
     componentDidMount() {
@@ -82,13 +82,16 @@ class RenderPhone extends Component {
             this.setState({
                 priviewData
             });
-            pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {level:-1,cell: -1});
+            pubsub.publish('RENDER_FORM_JS_UPDATE_FROM', {level: -1, cell: -1});
         });
 
         pubsub.subscribe('RENDER_PHONE_JS_UPDATE', (msg, {level, cell, cellData}) => {
             const priviewData = this.state.priviewData;
             const levelData = priviewData[level];
             levelData.data[cell][cellData.key] = cellData.value;
+            this.setState({
+                priviewData
+            })
         });
 
         pubsub.subscribe('RENDER_PHONE_JS_SAVE', async (msg, {subject_id}) => {
