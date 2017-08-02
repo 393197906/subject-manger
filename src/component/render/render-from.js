@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, Radio} from 'antd';
+import {Card, Form} from 'antd';
 import pubsub from 'pubsub-js'
 import './render.css'
-import {FormRoot, FormImg} from './form'
+import {FormRoot, FormImg,FormHeight} from './form'
 
 const Help = (props) => (
     <Card title="操作说明">
@@ -38,6 +38,10 @@ export default class RenderForm extends Component {
     _renderChild() {
         // return <FormImg level={this.state.level} cell={this.state.type}/>;
         if (this.state.cell > 0) {
+            if (this.state.formData.height) {
+                return <FormHeight key={this.state.cell} level={this.state.level} cell={this.state.cell}
+                                   formData={this.state.formData}/>
+            }
             return <FormImg key={this.state.cell} level={this.state.level} cell={this.state.cell}
                             formData={this.state.formData}/>
         }

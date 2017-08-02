@@ -3,9 +3,9 @@ import {DropTarget} from 'react-dnd';
 import {message} from 'antd';
 import './render.css'
 import pubsub from 'pubsub-js'
-import {Swiper, Nav, Amod, Bmod, Cmod, Dmod,} from '../module/index'
+import {Swiper, Nav, Amod, Bmod, Cmod, Dmod, Tools_Seat} from '../module/index'
 import API from '../../service/service'
-const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod};
+const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod, Tools_Seat};
 
 class RenderPhone extends Component {
     static propTypes = {
@@ -19,7 +19,7 @@ class RenderPhone extends Component {
         super(props);
         this.state = {
             operaceNum: 0,
-            priviewData: []
+            priviewData: this.props.subjectData.subject_template ? JSON.parse(this.props.subjectData.subject_template) : []
         };
     }
 

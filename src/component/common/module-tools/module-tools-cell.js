@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Button, Popover} from 'antd';
 import {DragSource} from 'react-dnd';
 import './module-tools.css'
-import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../../module/index'
-const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod};
+import {Swiper, Nav, Amod, Bmod, Cmod, Dmod, Tools_Seat} from '../../module/index'
+const lib = {Swiper, Nav, Amod, Bmod, Cmod, Dmod, Tools_Seat};
 
 
 const factory_kong_obj = (num = 0) => {
@@ -13,17 +13,25 @@ const factory_kong_obj = (num = 0) => {
     }
     return obj;
 };
-const initData = {
-    Swiper: factory_kong_obj(6),
-    Nav: factory_kong_obj(8),
-    // Nav: {
-    //     1: {primary_key: '1111'},
-    //     2: {primary_key: '2222'},
-    // },
-    Amod: factory_kong_obj(1),
-    Bmod: factory_kong_obj(2),
-    Cmod: factory_kong_obj(3),
-    Dmod: factory_kong_obj(3),
+const initData = () => {
+    return {
+        Swiper: factory_kong_obj(6),
+        Nav: factory_kong_obj(8),
+        // Nav: {
+        //     1: {primary_key: '1111'},
+        //     2: {primary_key: '2222'},
+        // },
+        Amod: factory_kong_obj(1),
+        Bmod: factory_kong_obj(2),
+        Cmod: factory_kong_obj(3),
+        Dmod: factory_kong_obj(3),
+
+        Tools_Seat: {
+            1: {
+                height: 10
+            }
+        }
+    }
 };
 
 // console.log(initData);
@@ -35,7 +43,7 @@ class ModuleToolsCell extends Component {
         const Hover = lib[this.props.priview];
         return connectDragSource(
             <div style={{marginBottom: '5px'}}>
-                <Popover content={<Hover data={initData[this.props.priview]}/>} placement="left"
+                <Popover content={<Hover data={initData()[this.props.priview]}/>} placement="left"
                          overlayClassName="priview-module">
                     <Button style={{width: '100%'}}>{this.props.name}</Button>
                 </Popover>
@@ -60,7 +68,7 @@ export default  DragSource('module-cell', {
     beginDrag(props) {
         return {
             ...props,
-            data: initData[props.priview]
+            data: initData()[props.priview]
         }
     },
 }, (connect, monitor) => {

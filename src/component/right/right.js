@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Tabs, Spin, Row, Col, message, Card} from 'antd';
 import './right.css'
-import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../module/index'
 import ModuleTools from '../common/module-tools/module-tools'
 import Convent from '../convent/convent'
 import Render from '../render/render'
@@ -13,7 +12,7 @@ export default class Right extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabActive: 'convent',
+            tabActive: 'render',
             loading: true,
             subjectData: {}
         };
@@ -51,8 +50,8 @@ export default class Right extends Component {
                         <Col span={18}>
                             <Tabs
                                 tabPosition="left"
-                                // defaultActiveKey={'convent'}
-                                defaultActiveKey={'render'}
+                                defaultActiveKey={'convent'}
+                                // defaultActiveKey={'render'}
                                 onChange={(key) => {
                                     this.setState({
                                         tabActive: key

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
 } from 'react-router-dom'
 import {Row, Col} from 'antd'
@@ -9,6 +9,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Left from './component/left/left'
 import Right from './component/right/right'
 import Main from './component/main/main'
+import 'antd/dist/antd.css';
 import './App.css';
 
 class Root extends Component {

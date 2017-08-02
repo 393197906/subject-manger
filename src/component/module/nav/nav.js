@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, InputNumber} from 'antd';
+import React from 'react';
+import {Row, Col} from 'antd';
 import './nav.css'
 import '../module.css'
 import Base from '../base'

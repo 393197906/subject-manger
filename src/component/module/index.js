@@ -7,5 +7,5 @@ export  {default as Dmod} from './dmod/dmod'
 export  {default as Cmod} from './cmod/cmod'
 export  {default as Amod} from './amod/amod'
 export  {default as Bmod} from './bmod/bmod'
-
+export  {default as Tools_Seat} from './tools-seat/tools-seat'
 

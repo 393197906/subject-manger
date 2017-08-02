@@ -1,7 +1,7 @@
 /**
  * Created by mr.xie on 2017/7/19.
  */
-import React, {Component} from 'react';
+import {Component} from 'react';
 import pubsub from 'pubsub-js'
 
 export default class Base extends Component {
@@ -25,6 +25,7 @@ export default class Base extends Component {
     };
 
     _cellComProp = (key, type) => {
+        console.log(this.props);
         let style = this.state.active === key && this.props.operate ? this.active : null;
         if (this.props.data[key]) { //设置背景图片
             if (this.props.data[key].image_url) {
@@ -40,6 +41,9 @@ export default class Base extends Component {
         }
         if (type === 'click') {
             return {onClick}
+        }
+        if (type === 'height') {
+            return {style: {...style, height: `${this.props.data[key][type]}px`}, onClick}
         }
         return {style, onClick}
     };

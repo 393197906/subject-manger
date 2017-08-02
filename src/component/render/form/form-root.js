@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, Radio, Icon, Modal} from 'antd';
+import {Button, Form, Icon, Modal} from 'antd';
 import pubsub from 'pubsub-js'
 import '../render.css'
 const confirm = Modal.confirm;

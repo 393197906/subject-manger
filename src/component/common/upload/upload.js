@@ -35,7 +35,7 @@ export default class Mupload extends Component {
             this.setState(server_keys);
         } else {
             this.setState({loading: true});
-            axios.get("http://localhost/bingdenew/ec/mobile/index.php?m=default&c=subject&a=autograph_oss").then(({data, status}) => {
+            axios.get("index.php?m=default&c=subject&a=autograph_oss").then(({data, status}) => {
                 if (status === 200) {
                     const server_data = {
                         OSSAccessKeyId: data.accessid,
@@ -64,9 +64,9 @@ export default class Mupload extends Component {
         if (file.status === 'done') {
             const image_name = `${file.lastModified}@@${file.size}@@${file.name}`;
             const image_url = `http://bingde360.oss-cn-beijing.aliyuncs.com/${image_name}?x-oss-process=style/width400`;
-            console.log({
-                image_name, image_url
-            });
+            // console.log({
+            //     image_name, image_url
+            // });
             pubsub.publish('RENDER_PHONE_JS_UPDATE', {
                 level: this.props.level,
                 cell: this.props.cell,

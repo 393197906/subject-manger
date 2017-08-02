@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, Radio} from 'antd';
+import {Form, Input, Radio} from 'antd';
 import pubsub from 'pubsub-js'
 import '../render.css'
 import Mupload from '../../common/upload/upload'

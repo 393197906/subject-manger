@@ -2,7 +2,7 @@
  * Created by mr.xie on 2017/7/26.
  */
 import React, {Component} from 'react';
-import {Input, Button, Menu, Icon, Spin, Modal, message} from 'antd';
+import {Input, Modal, message} from 'antd';
 import  API from '../../service/service'
 import './left.css'
 export default  class Left extends Component {

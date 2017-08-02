@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tabs, Card, Button, Row, Col, Form, Input, InputNumber, Collapse, Popover} from 'antd';
+import {Card, Collapse} from 'antd';
 import  ModuleToolsCell from './module-tools-cell'
 import './module-tools.css'
 import {Swiper, Nav, Amod, Bmod, Cmod, Dmod} from '../../module/index'
@@ -26,8 +26,11 @@ export default class ModuleTools extends Component {
                             ))
                         }
                     </Panel>
-                    <Panel header='动态组件' key="2">s
-                        <p>2</p>
+                    <Panel header='动态组件' key="2">
+                        <p>空</p>
+                    </Panel>
+                    <Panel header='工具组件' key="3">
+                        <ModuleToolsCell name={'间距组件'} priview={'Tools_Seat'}/>
                     </Panel>
                 </Collapse>
             </Card>

@@ -2,10 +2,10 @@
  * Created by mr.xie on 2017/7/26.
  */
 import axios from 'axios'
-import {message} from 'antd';
 
 class service {
-    pres = 'http://localhost/bingdenew/ec/mobile/index.php/admin/subject/';
+    pres = 'http://localhost/bingdenew/ec/mobile/index.php?m=admin&c=subject&a=';
+    // pres = 'index.php?m=admin&c=subject&a=';
 
     subjcet_list() {
         return new Promise((res, rej) => {
@@ -21,7 +21,7 @@ class service {
 
     find_subjcet(subject_id) {
         return new Promise((res, rej) => {
-            axios.get(`${this.pres}api_find_subject?subject_id=${subject_id}`).then(({data}) => {
+            axios.get(`${this.pres}api_find_subject&subject_id=${subject_id}`).then(({data}) => {
                 res(data);
             }).catch((err) => {
                 rej(err.message);

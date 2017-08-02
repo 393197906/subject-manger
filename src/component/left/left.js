@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-import {Input, Button, Menu, Icon, Spin, Modal, message} from 'antd';
+import {Input, Button, Menu, Icon, Spin, message} from 'antd';
 import AddSubject from './add-subject'
 import  API from '../../service/service'
 import pubsub from 'pubsub-js'
@@ -37,11 +37,15 @@ export default  class Left extends Component {
         this.setState({loading: false});
     }
 
+    _search(e){
+        const search  = e.target.value;
+    }
+
     render() {
         return (
             <Spin size="large" tip="专题加载中..." spinning={this.state.loading}>
                 <div className="left">
-                    <Search style={{width: '100%'}} placeholder="搜索专题"/>
+                    {/*<Search style={{width: '100%'}} placeholder="搜索专题" onChange={this._search.bind(this)}/>*/}
                     <Menu mode="inline" defaultOpenKeys={['sub']} defaultSelectedKeys={['main']}>
                         <Menu.Item key='main'><Link
                             to='/'><Icon type="bar-chart"/>梗概

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Card, Button, Row, Col, Form, Input, InputNumber} from 'antd';
+import React  from 'react';
+import {Row, Col} from 'antd';
 import './cmod.css'
 import '../module.css'
 import Base from '../base'
@@ -21,6 +21,11 @@ export default class Cmod extends Base {
                 <Col
                     span="8"
                     className="module-cell cmod-cell-2"
+                    {...this._cellComProp(1)}
+                >图片1</Col>
+                <Col
+                    span="8"
+                    className="module-cell cmod-cell-2"
                     {...this._cellComProp(2)}
                 >图片2</Col>
                 <Col
@@ -28,11 +33,6 @@ export default class Cmod extends Base {
                     className="module-cell cmod-cell-2"
                     {...this._cellComProp(3)}
                 >图片3</Col>
-                <Col
-                    span="8"
-                    className="module-cell cmod-cell-2"
-                    {...this._cellComProp(4)}
-                >图片4</Col>
             </Row>
         );
     }

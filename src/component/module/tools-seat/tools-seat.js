@@ -1,11 +1,11 @@
 import React from 'react';
 import {Row, Col} from 'antd';
-import './amod.css'
+import './tools-seat.css'
 import '../module.css'
 import Base from '../base'
 
 
-export default class Amod extends Base {
+export default class Tools_Seat extends Base {
     constructor(props) {
         super(props);
     }
@@ -16,13 +16,13 @@ export default class Amod extends Base {
                  {...this._cellComProp(0, 'style')}
             >
                 <Col span="24" className='module-card-title'>
-                    <span {...this._cellComProp(0, 'click')}>静态模块A</span>
+                    <span {...this._cellComProp(0, 'click')}>间距组件({this.props.data['1'].height}px)</span>
                 </Col>
                 <Col
                     span="24"
-                    className="module-cell amod-cell"
-                    {...this._cellComProp(1)}
-                >图片1</Col>
+                    className="module-cell seat-cell"
+                    {...this._cellComProp(1, 'height')}
+                >&nbsp;</Col>
             </Row>
         );
     }
